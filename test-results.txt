@@ -1,0 +1,22 @@
+browser: safari 9.0.3
+mem: 50-70% in use
+src: local
+
+query: items.find({'$and': [{'company_name':{'$regex': /[a-o][5-9]/i}}, {'low_temperature':{'$lt':20}}, {'high_temperature':{'$gt':120}}] })
+
+total records: 100k
+
+filtered records, execution time, total time:
+initial page load: 18579,   1552,   ?
+test 1: 18561,  21725,  22.21s
+test 2: 18492,  21016,  20.26s
+test 3: 18447,  994,    1.43s
+test 4: 18545,  978,    1.42s
+test 5: 18668,  970,    1.42s
+test 6: 18665,  1072,   1.52s
+test 7: 18776,  1067,   2.25s
+test 8: 18612,  1039,   1.50s
+test 9: 18797,  1065,   2.25s
+test 10:18747,  20348,  19.32s
+
+**short time tests did not load lokidb.js and/or lokijs.js (in Timeline Events)
