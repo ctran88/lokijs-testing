@@ -113,7 +113,7 @@ function parseMe(file) {
 		header: true,
 		dynamicTyping: true,
 		complete: function(results) {
-			console.log("Finished parsing.");
+			document.getElementById("parse-text").innerHTML = " Finished parsing.";
 			renderDataset(results.data);
 		}
 	});
@@ -123,30 +123,84 @@ function renderDataset(dataset) {
 	dataset.forEach(function(el) {
 		coll.insert(el);
 	});
-	
-	query();
 }
 
-function query() {
+function defaultQuery() {
+	// start time
 	var start = new Date().getTime();
 
 	// count total
 	var count = coll.find().length;
-	console.log("Total records: " + count);
+	// display count total
+	var h1node = document.createElement("h1");
+	var h1textnode = document.createTextNode("Total records: " + count);
+	h1node.appendChild(h1textnode);
+	document.getElementById("div-right").appendChild(h1node);
 
-	// filtered records
-	var filtered = coll.find({'$and': [ {'ts_name':{'$ne':'Standard Retail'}}, {'temp_config':{'$lt':1800}}, {'TimeOverTmax':{'$gt':0}}, {'pct_exposure_1':{'$gt':1}} ] });
-	var filtered_length = filtered.length;
-	console.log("Filtered records: " + filtered_length);
-
+	// end time
 	var end = new Date().getTime();
 	var time = end - start;
-	console.log("Query time: " + time + "ms");
+	// display query time
+	var h3node = document.createElement("h3");
+	var h3textnode = document.createTextNode("Query time: " + time + "ms");
+	h3node.appendChild(h3textnode);
+	document.getElementById("div-right").appendChild(h3node);
+}
+
+function customQuery(query) {
+	var custom;
+
+	// start time
+	var start = new Date().getTime();
+
+	// custom query
+	custom = eval(query);
+
+	// queried count total
+	var count = eval(query + ".length");
+	// display queried count total
+	var h1node = document.createElement("h1");
+	var h1textnode = document.createTextNode("Queried records: " + count);
+	h1node.appendChild(h1textnode);
+	document.getElementById("div-right").appendChild(h1node);
+
+	// end time
+	var end = new Date().getTime();
+	var time = end - start;
+	// display query time
+	var h3node = document.createElement("h3");
+	var h3textnode = document.createTextNode("Query time: " + time + "ms");
+	h3node.appendChild(h3textnode);
+	document.getElementById("div-right").appendChild(h3node);
+
+	// display results in console
+	if (document.getElementById("display").checked) {
+		var str = JSON.stringify(custom);
+		console.log(str);
+	}
+}
+
+function divScroll() {
+	var elem = document.getElementById("div-right");
+	elem.scrollTop = elem.scrollHeight;
 }
 
 window.onload=function() {
 	document.getElementById("parse").addEventListener('click', function() {
+		document.getElementById("parse-text").innerHTML = " Parsing...";
 		parseMe(document.getElementById("myFile").files[0]);
+	});
+
+	document.getElementById("default-query").addEventListener('click', function() {
+		defaultQuery();
+		divScroll();
+	});
+
+	document.getElementById("query").addEventListener('click', function() {
+		var query = document.getElementById("input").value;
+
+		customQuery(query);
+		divScroll();
 	});
 }
 

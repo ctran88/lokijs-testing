@@ -9,10 +9,40 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="lokidb.js"></script>
+
+	<style type="text/css">
+		.panel-left {
+			width: 50%;
+			float: left;
+			position: fixed;
+		}
+
+		.panel-right {
+			height: 600px;
+			width: 50%;
+			float: right;
+			overflow: scroll;
+		}
+	</style>
 </head>
 <body>
-	<p><input type="file" id="myFile" onchange=""></input></p>
-	<p><button id="parse">Parse</button></p>
-	<p id="count"></p>
+	<div class="panel-left" id="div-left">
+		<h1>Lokijs Testing</h1>
+		<p>Open console to view results.</p>
+		
+		<p>1.  <input type="file" id="myFile"></p>
+		<p>2.  <input type="button" id="parse" value="Parse"><span id="parse-text"></span></p>
+		<p>3.  <input type="button" id="default-query" value="Default Query"></p>
+		<p>OR</p>
+
+		<textarea id="input" rows="4" cols="50" placeholder="Create query..."></textarea><br>
+		<input type="checkbox" id="display"> Display results in console<br>
+		<input type="submit" id="query" value="Run Query">
+	</div>
+
+	<div class="panel-right" id="div-right">
+		<p id="time"></p>
+		<p id="results"></p>
+	</div>
 </body>
 </html>
