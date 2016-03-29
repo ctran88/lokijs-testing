@@ -30,15 +30,9 @@ function parseMe(file) {
  */
 function renderDataset(dataset) {
 	dataset.forEach(function(el) {
-
-
-
-		// time does not convert correctly..time zone conversion?
-		// 
-		// 
-		el.BeginUTC = moment(el.BeginUTC, "M/D/YYYY HH:mm");
-		el.EndUTC = moment(el.EndUTC, "M/D/YYYY HH:mm");
-		el.EventUTC = moment(el.EventUTC, "M/D/YYYY HH:mm");
+		el.BeginUTC = moment.utc(el.BeginUTC, "M/D/YYYY HH:mm");
+		el.EndUTC = moment.utc(el.EndUTC, "M/D/YYYY HH:mm");
+		el.EventUTC = moment.utc(el.EventUTC, "M/D/YYYY HH:mm");
 		coll.insert(el);
 	});
 	document.getElementById("parse-text").innerHTML = " Database populated.";
