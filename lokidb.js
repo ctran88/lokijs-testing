@@ -30,11 +30,16 @@ function parseMe(file) {
  */
 function renderDataset(dataset) {
 	dataset.forEach(function(el) {
-		el.BeginUTC = moment.utc(el.BeginUTC, "M/D/YYYY HH:mm");
-		el.EndUTC = moment.utc(el.EndUTC, "M/D/YYYY HH:mm");
-		el.EventUTC = moment.utc(el.EventUTC, "M/D/YYYY HH:mm");
+
+		// converts date/time to Unix time (UTC)
+		el.BeginUTC = moment.utc(el.BeginUTC, "M/D/YY HH:mm").valueOf();
+		el.EndUTC = moment.utc(el.EndUTC, "M/D/YY HH:mm").valueOf();
+		el.EventUTC = moment.utc(el.EventUTC, "M/D/YY HH:mm").valueOf();
+
+		// insert into collection
 		coll.insert(el);
 	});
+	
 	document.getElementById("parse-text").innerHTML = " Database populated.";
 }
 
