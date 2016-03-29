@@ -56,7 +56,7 @@ document.writeln("total count: " + count);
 document.writeln("count with high temp gte 1000: " + filter);*/
 
 
-const MAX_RECORDS = 100000;
+/*const MAX_RECORDS = 100000;
 
 function randomString(length, chars) {
 	var result = '';
@@ -103,17 +103,69 @@ function createDB(items) {
 var db = new loki('testdb');
 var items = db.addCollection('testdb');
 var executionTime = createDB(items);
-document.write("<p>Execution time: " + executionTime + "</p>");
+console.log("<p>Execution time: " + executionTime + "</p>");
 
 // count total
 var count = items.find().length;
-document.write("<p>Total records: " + count + "</p>");
+console.log("<p>Total records: " + count + "</p>");
 
 // filtered records
 var filtered = items.find({'$and': [{'company_name':{'$regex': /[a-o][5-9]/i}}, {'low_temperature':{'$lt':20}}, {'high_temperature':{'$gt':120}}] });
 var str = JSON.stringify(filtered);
 var len = filtered.length;
-document.write("<p>Filtered records count: " + len + "<br>" + str + "</p>");
+console.log("<p>Filtered records count: " + len + "</p>");
+//console.log("<p>" + str + "</p>");*/
+
+var db = new loki('testdb');
+var coll = db.addCollection('testdb');
+
+function parseMe(file) {
+	Papa.parse(file, {
+		header: true,
+		dynamicTyping: true,
+		complete: function(results) {
+			console.log("Finished parsing.");
+			renderDataset(results.data);
+		}
+	});
+}
+
+function renderDataset(dataset) {
+	dataset.forEach(function(el) {
+		coll.insert(el);
+	});
+	
+	query();
+}
+
+function query() {
+	var start = new Date().getTime();
+
+	// count total
+	var count = coll.find().length;
+	console.log("Total records: " + count);
+
+	// filtered records
+	var filtered = coll.find({'$and': [ {'ts_name':{'$ne':'Standard Retail'}}, {'temp_config':{'$lt':1800}}, {'TimeOverTmax':{'$gt':0}}, {'pct_exposure_1':{'$gt':1}} ] });
+	var filtered_length = filtered.length;
+	console.log("Filtered records: " + filtered_length);
+
+	var end = new Date().getTime();
+	var time = end - start;
+	console.log("Query time: " + time + "ms");
+}
+
+window.onload=function() {
+	document.getElementById("parse").addEventListener('click', function() {
+		parseMe(document.getElementById("myFile").files[0]);
+	});
+}
+
+
+
+
+
+
 
 
 

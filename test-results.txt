@@ -20,3 +20,4 @@ test 9: 18797,  1065,   2.25s
 test 10:18747,  20348,  19.32s
 
 **short time tests did not load lokidb.js and/or lokijs.js (in Timeline Events)
+

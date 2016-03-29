@@ -5,11 +5,14 @@
 
 	<!-- <script type="text/javascript" src="https://rawgit.com/typicaljoe/taffydb/master/taffy.js"></script> -->
 	<script type="text/javascript" src="node_modules/lokijs/src/lokijs.js"></script>
+	<script type="text/javascript" src="https://rawgit.com/mholt/PapaParse/master/papaparse.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 	<script type="text/javascript" src="lokidb.js"></script>
 </head>
 <body>
-	<pre id="json"></pre>
+	<p><input type="file" id="myFile" onchange=""></input></p>
+	<p><button id="parse">Parse</button></p>
+	<p id="count"></p>
 </body>
 </html>
