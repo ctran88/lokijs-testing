@@ -1,4 +1,6 @@
-/*function loadFileJSON(toLocalStorage, fromUrl){
+/************************* $.getJSON method ************************/
+/******************************************************************/
+ /*function loadFileJSON(toLocalStorage, fromUrl){
     if (localStorage[toLocalStorage])
             { console.log("Good! Data already loaded locally! Nothing to do!");  }
     else {
@@ -12,11 +14,17 @@
 loadFileJSON( 'myData','db.json'); */
 
 
+
+/************************* $.getJSON method ************************/
+/******************************************************************/
 /*$.getJSON('db.json', function(data) {
 	document.getElementById("json").innerHTML = JSON.stringify(data, null, 4);
 })*/
 
 
+
+/************************* $.getJSON and push to array ************/
+/******************************************************************/
 /*$.getJSON('db.json', function(data) {
 	var items = [];
 	$.each(data, function(key, value) {
@@ -30,32 +38,9 @@ loadFileJSON( 'myData','db.json'); */
 });*/
 
 
-/*var db = TAFFY();
-$.getJSON('db.json', function(data) {
-	
-	$.each(data, function(key, value) {
-		db.insert({ id: value.id,
-					company_name: value.company_name,
-					address: { street: value.address.street,
-								city: value.address.city,
-								state: value.address.state,
-								zip: value.address.zip },
-					low_temperature: value.low_temperature,
-					high_temperature: value.high_temperature,
-					timestamp: value.timestamp
-		});
-	});
-});
 
-db.store("mydb");
-
-var count = db().count();
-var filter = db().filter({high_temperature:{gte:1000}}).count();
-
-document.writeln("total count: " + count);
-document.writeln("count with high temp gte 1000: " + filter);*/
-
-
+/************************* for loop method ************************/
+/******************************************************************/
 /*const MAX_RECORDS = 100000;
 
 function randomString(length, chars) {
@@ -116,6 +101,10 @@ var len = filtered.length;
 console.log("<p>Filtered records count: " + len + "</p>");
 //console.log("<p>" + str + "</p>");*/
 
+
+
+/************************* PapaParse csv method ************************/
+/***********************************************************************/
 var db = new loki('testdb');
 var coll = db.addCollection('testdb');
 
